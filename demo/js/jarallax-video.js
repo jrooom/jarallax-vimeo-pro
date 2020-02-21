@@ -135,7 +135,7 @@ module.exports = win;
 /* 5 */
 /***/ (function(module, exports) {
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var g; // This works in non-strict mode
 
@@ -203,7 +203,7 @@ module.exports = __webpack_require__(9);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return VideoWorker; });
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -339,14 +339,10 @@ function () {
       if (Youtube) {
         this.type = 'youtube';
         return Youtube;
-      }
-
-      if (Vimeo) {
+      } else if (Vimeo) {
         this.type = 'vimeo';
         return Vimeo;
-      }
-
-      if (Local) {
+      } else if (Local) {
         this.type = 'local';
         return Local;
       }
@@ -616,14 +612,14 @@ function () {
 
       if (self.type === 'vimeo') {
         var request = new XMLHttpRequest();
-        request.open('GET', "https://vimeo.com/api/v2/video/".concat(self.videoID, ".json"), true);
+        request.open('GET', 'https://vimeo.com/api/oembed.json?url=https://vimeo.com/'+ self.videoID, true);
 
         request.onreadystatechange = function () {
           if (this.readyState === 4) {
             if (this.status >= 200 && this.status < 400) {
               // Success!
               var response = JSON.parse(this.responseText);
-              self.videoImage = response[0].thumbnail_large;
+              self.videoImage = response.thumbnail_url;
               callback(self.videoImage);
             } else {// Error :(
             }
@@ -753,9 +749,6 @@ function () {
               } else {
                 clearInterval(ytProgressInterval);
               }
-            },
-            onError: function onError(e) {
-              self.fire('error', e);
             }
           };
           var firstInit = !self.$video;
@@ -798,7 +791,6 @@ function () {
             self.playerOptions.byline = 0;
             self.playerOptions.portrait = 0;
             self.playerOptions.title = 0;
-            self.playerOptions.background = 1;
           }
 
           if (!self.$video) {
@@ -873,9 +865,6 @@ function () {
           });
           self.player.on('volumechange', function (e) {
             self.fire('volumechange', e);
-          });
-          self.player.on('error', function (e) {
-            self.fire('error', e);
           });
         } // Local
 
@@ -965,9 +954,6 @@ function () {
             });
             self.fire('volumechange', e);
           });
-          self.player.addEventListener('error', function (e) {
-            self.fire('error', e);
-          });
         }
 
         callback(self.$video);
@@ -997,12 +983,7 @@ function () {
 
 
       if (self.type === 'vimeo' && !VimeoAPIadded) {
-        VimeoAPIadded = 1; // Useful when Vimeo API added using RequireJS https://github.com/nk-o/video-worker/pull/7
-
-        if (typeof Vimeo !== 'undefined') {
-          return;
-        }
-
+        VimeoAPIadded = 1;
         src = 'https://player.vimeo.com/api/player.js';
       }
 
