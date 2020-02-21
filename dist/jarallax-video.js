@@ -2,7 +2,7 @@
  * Name    : Video Background Extension for Jarallax
  * Version : 1.0.1
  * Author  : nK <https://nkdev.info>
- * GitHub  : https://github.com/nk-o/jarallax
+ * GitHub  : https://github.com/jrooom/jarallax-vimeo-pro
  */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -612,14 +612,14 @@ function () {
 
       if (self.type === 'vimeo') {
         var request = new XMLHttpRequest();
-        request.open('GET', "https://vimeo.com/api/v2/video/".concat(self.videoID, ".json"), true);
+        request.open('GET', 'https://vimeo.com/api/oembed.json?url=https://vimeo.com/'+ self.videoID, true);
 
         request.onreadystatechange = function () {
           if (this.readyState === 4) {
             if (this.status >= 200 && this.status < 400) {
               // Success!
               var response = JSON.parse(this.responseText);
-              self.videoImage = response[0].thumbnail_large;
+              self.videoImage = response.thumbnail_url;
               callback(self.videoImage);
             } else {// Error :(
             }
