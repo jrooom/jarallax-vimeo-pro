@@ -23,21 +23,21 @@ QUnit.module('video', function () {
 
         jarallax($jarallax, 'destroy');
         jarallax($jarallax, {
-            videoSrc: 'https://vimeo.com/235212527',
+            videoSrc: 'https://vimeo.com/377508058',
         });
-        assert.equal($jarallax.jarallax.video.videoID, '235212527', 'https://vimeo.com/235212527');
+        assert.equal($jarallax.jarallax.video.videoID, '377508058', 'https://vimeo.com/377508058');
 
         jarallax($jarallax, 'destroy');
         jarallax($jarallax, {
-            videoSrc: 'http://vimeo.com/235212527',
+            videoSrc: 'http://vimeo.com/377508058',
         });
-        assert.equal($jarallax.jarallax.video.videoID, '235212527', 'http://vimeo.com/235212527');
+        assert.equal($jarallax.jarallax.video.videoID, '377508058', 'http://vimeo.com/377508058');
 
         jarallax($jarallax, 'destroy');
         jarallax($jarallax, {
-            videoSrc: 'https://player.vimeo.com/video/235212527?byline=0&portrait=0',
+            videoSrc: 'https://player.vimeo.com/video/377508058?byline=0&portrait=0',
         });
-        assert.equal($jarallax.jarallax.video.videoID, '235212527', 'https://player.vimeo.com/video/235212527?byline=0&portrait=0');
+        assert.equal($jarallax.jarallax.video.videoID, '377508058', 'https://player.vimeo.com/video/377508058?byline=0&portrait=0');
 
         jarallax($jarallax, 'destroy');
         jarallax($jarallax, {
@@ -80,7 +80,7 @@ QUnit.module('video', function () {
         var $jarallax = UTILS.get('img')[0];
 
         jarallax($jarallax, {
-            videoSrc: 'https://vimeo.com/235212527',
+            videoSrc: 'https://vimeo.com/377508058',
         });
 
         var done = assert.async();
